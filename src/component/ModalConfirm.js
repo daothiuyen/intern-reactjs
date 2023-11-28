@@ -11,7 +11,9 @@ const ModalConfirm = (props) => {
         // dấu (+) trường hợp trả về string thì sẽ convert về number
         if (res && +res.statusCode === 204) {
             toast.success('Xóa thành công');
+            //đóng modal
             handleClose();
+            //cập nhật lại list user
             handleDeleteUserFromModal(dataUserDelete);
         } else {
             toast.error('Xóa thất bại');

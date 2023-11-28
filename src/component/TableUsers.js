@@ -5,7 +5,7 @@ import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNew';
 import ModalEditUser from './ModalEditUser';
 import ModalConfirm from './ModalConfirm';
-import _ from "lodash";
+import _, { debounce } from "lodash";
 import "./TableUser.scss";
 
 const TableUsers = () => {
@@ -20,6 +20,8 @@ const TableUsers = () => {
     const [isShowModalDelete, setIsShowModalDelete] = useState(false);
     const [sortBy, setSortBy] = useState("asc");
     const [sortField, setSortField] = useState("id");
+    //khi có button search -> khi click sẽ cần lấy ra state của nó
+    const [keyword, setKeyWord] = useState("");
     const handleClose = () => {
         setIsShowModalAddNew(false);
         setIsShowModalEdit(false);
@@ -78,12 +80,31 @@ const TableUsers = () => {
         cloneListUser = _.orderBy(cloneListUser, [sortField], [sortBy]);
         setListUser(cloneListUser);
     }
-    console.log('>>>>>sort', sortBy, sortField);
+    //deboune set thời gian trả ra kết quả. ví dụ search gõ rồi 1 khoảng thời gian mới trả ra kết quả.
+    const handleSearch = debounce((event) => {
+        let term = event.target.value;
+        if (term) {
+            let cloneListUser = _.cloneDeep(listUsers);
+            cloneListUser = cloneListUser.filter(item => item.email.includes(term));
+            setListUser(cloneListUser);
+        } else {
+            getUsers(1);
+        }
+        console.log(event.target.value);
+    }, 500)
     return (
         <>
             <div className='my-3 add-new'>
                 <span><b>List Users:</b></span>
                 <button className='btn btn-success' onClick={() => setIsShowModalAddNew(true)}>Add new</button>
+            </div>
+            <div className='col-4 my-3'>
+                <input
+                    className='form-control'
+                    placeholder='Search user by email'
+                    // value={keyword}
+                    onChange={(event) => handleSearch(event)}
+                />
             </div>
             <Table bordered>
                 <thead>

@@ -4,6 +4,7 @@ import { fetchAllUser } from '../services/UserService';
 import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNew';
 import ModalEditUser from './ModalEditUser';
+import ModalConfirm from './ModalConfirm';
 import _ from "lodash";
 
 const TableUsers = () => {
@@ -14,9 +15,12 @@ const TableUsers = () => {
     const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
     const [isShowModalEdit, setIsShowModalEdit] = useState(false);
     const [dataUserEdit, setDataUserEdit] = useState([]);
+    const [dataUserDelete, setDataUserDelete] = useState([]);
+    const [isShowModalDelete, setIsShowModalDelete] = useState(false);
     const handleClose = () => {
         setIsShowModalAddNew(false);
         setIsShowModalEdit(false);
+        setIsShowModalDelete(false);
     }
     const handleUpdateTableUser = (user) => {
         setListUser([user, ...listUsers]);
@@ -54,6 +58,16 @@ const TableUsers = () => {
             setIsShowModalEdit(true);
         }
     }
+
+    const handleDeteleUser = (user) => {
+        setIsShowModalDelete(true);
+        setDataUserDelete(user);
+    }
+    const handleDeleteUserFromModal = (user) => {
+        let cloneListUser = _.cloneDeep(listUsers);
+        cloneListUser = listUsers.filter(item => item.id !== user.id)
+        setListUser(cloneListUser);
+    }
     return (
         <>
             <div className='my-3 add-new'>
@@ -83,7 +97,10 @@ const TableUsers = () => {
                                         <button
                                             className="btn btn-warning mx-3"
                                             onClick={() => handleEditUser(item)}>Edit</button>
-                                        <button className="btn btn-danger">Delete</button>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => handleDeteleUser(item)}
+                                        >Delete</button>
                                     </td>
                                 </tr>
                             )
@@ -121,6 +138,12 @@ const TableUsers = () => {
                 handleClose={handleClose}
                 dataUserEdit={dataUserEdit}
                 handleEditUserFromModal={handleEditUserFromModal}
+            />
+            <ModalConfirm
+                show={isShowModalDelete}
+                handleClose={handleClose}
+                dataUserDelete={dataUserDelete}
+                handleDeleteUserFromModal={handleDeleteUserFromModal}
             />
         </>
     )

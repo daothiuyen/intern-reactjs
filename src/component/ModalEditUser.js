@@ -12,7 +12,6 @@ const ModalEditUser = (props) => {
     const handleEditUser = async () => {
         let res = await putUpdateUser(dataUserEdit)
         if (res && res.updatedAt) {
-            console.log(12);
             handleEditUserFromModal({
                 first_name: name,
                 id: dataUserEdit.id
@@ -30,7 +29,8 @@ const ModalEditUser = (props) => {
     return (
         <>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} backdrop="static"
+                keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit user</Modal.Title>
                 </Modal.Header>

@@ -6,3 +6,15 @@
         padding: 0 2px;
     }
 }
+.add-new{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .group-btn{
+        display: flex;
+        gap: 10px;
+        i{
+            
+        }
+    }
+  }

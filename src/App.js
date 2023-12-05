@@ -4,6 +4,8 @@ import Header from './component/Header';
 import TableUsers from './component/TableUsers';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
+import Home from './component/Home';
+import { Routes, Route, Link } from 'react-router-dom';
 function App() {
 
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
@@ -13,9 +15,13 @@ function App() {
   return (
     <>
       <div className='app-container'>
-        <Header />
+
         <Container >
-          <TableUsers />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} /> {/* 👈 Renders at /app/ */}
+            <Route path="/users" element={<TableUsers />} />
+          </Routes>
         </Container>
       </div>
       <ToastContainer

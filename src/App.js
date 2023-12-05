@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Home from './component/Home';
 import { Routes, Route, Link } from 'react-router-dom';
+import Login from './component/Login';
 function App() {
 
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} /> {/* 👈 Renders at /app/ */}
             <Route path="/users" element={<TableUsers />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Container>
       </div>

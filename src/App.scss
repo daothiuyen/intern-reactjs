@@ -12,5 +12,58 @@ code {
     monospace;
 }
 .app-container{
+  .login-container{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    .title{
+      text-align: center;
+      font-size: 23px;
+      font-weight: 600;
+      padding-top: 30px;
+    }
+    .text{
+      font-weight: 600;
+      padding-bottom: 3px;
+    }
+    input {
+      padding: 8px 5px;
+      outline: none;
+      margin-bottom: 7px;
+      background: #1618230f;
+      border:#1618230f;
+      width: 100%;
+      &:hover{
+        background-color: #dedede;
+      }
+    }
+    .input-2{
+      position: relative;
+      i{
+        position: absolute;
+        top: 17px;
+        right: 10px;
+      }
+    }
+    button{
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      &.active{
+        background-color: #fe2255;
+        color: #fff;
+      }
+    }
+    button[disable=disable], button:disabled{
+      cursor: not-allowed;
+    }
+    .back{
+      text-align: center;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+  }
   
 }
